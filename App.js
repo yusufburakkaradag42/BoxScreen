@@ -1,20 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { useState } from 'react';
+import { StyleSheet, View ,Button, FlatList} from 'react-native';
 
 export default function App() {
+  const [colors, setColors] = useState([]);
+
+  const randomColor = () => {
+    const red = Math.floor(Math.random() * 256);
+    const green = Math.floor(Math.random() * 256);
+    const blue = Math.floor(Math.random() * 256);
+    return `rgb(${red},${green},${blue})`;
+  };
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View  style={{marginVertical: 50 }}>
+      <Button
+       
+        title="Kutu Ekle"
+        onPress={() => {
+          setColors([...colors, randomColor()]);
+        }}
+      />
+      <FlatList
+        data={colors}
+        renderItem={({ item }) => {
+          return (
+            <View
+              style={{
+                height: 150,
+                width: 150,
+                backgroundColor: item,
+                marginVertical: 20,
+              }}
+            />
+          );
+        }}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  marginVertical : 50 ,
   },
 });
